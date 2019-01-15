@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.Vector;
 import java.util.Random;
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,7 +18,7 @@ public class Signal {
 		unit = "Volts";
 		fe = 5000;
 		int f = 100;
-		echs = new ArrayList<Double>();
+		echs = new Vector<Double>();
 		if (type == SIGTYPE.SINE) {
 			for (int i = 0; i < 512; i++)
 				echs.add(new Double(Math.sin(2 * Math.PI * i * f / fe)));
@@ -48,7 +48,7 @@ public class Signal {
 		this.fe = fe;
 		this.unit = units;
 		this.nb_bits_quant = nb_bits_quant;
-		echs = new ArrayList<Double>();
+		echs = new Vector<Double>();
 		File fsig = new File(fname);
 		if (!fsig.exists())
 			System.out.print("File doesn't exist");

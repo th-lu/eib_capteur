@@ -1,7 +1,7 @@
 package model.xbee;
 
 import java.util.AbstractList;
-import java.util.ArrayList;
+import java.util.Vector;
 
 import com.rapplogic.xbee.api.ApiId;
 import com.rapplogic.xbee.api.PacketListener;
@@ -30,7 +30,7 @@ public class XBeeListener {
 				//System.out.println("Reçu");
 				if (response.getApiId() == ApiId.RX_16_IO_RESPONSE || response.getApiId() == ApiId.RX_64_IO_RESPONSE) {
 					RxResponseIoSample ioSample = (RxResponseIoSample) response;
-					ArrayList<Double> samples = new ArrayList<Double>();
+					Vector<Double> samples = new Vector<Double>();
 					for (IoSample sample : ioSample.getSamples()) {
 						//System.out.println("Analog D0 reading is " + sample.getAnalog0());
 						samples.add(new Double(sample.getAnalog0() * 3.3 / 1023));

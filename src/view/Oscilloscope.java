@@ -1,6 +1,6 @@
 package view;
 	
-import java.util.ArrayList;
+import java.util.Vector;
 
 import com.rapplogic.xbee.api.XBeeException;
 
@@ -25,7 +25,7 @@ public class Oscilloscope extends Application {
 	Signal reception;
 	@Override
 	public void start(Stage primaryStage) {
-		reception = new Signal(new ArrayList<Double>(), 1000, 10);
+		reception = new Signal(new Vector<Double>(), 1000, 10);
 		try {
 			XBeeListener listener = new XBeeListener(reception);
 		} catch (XBeeException e) {

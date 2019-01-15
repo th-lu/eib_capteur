@@ -1,7 +1,7 @@
 package model;
 
 import java.util.AbstractList;
-import java.util.ArrayList;
+import java.util.Vector;
 import java.util.List;
 
 public class SignalTools{
@@ -38,7 +38,7 @@ public class SignalTools{
 	static public AbstractList<Double> DFTM(AbstractList<Double> sig)//Module
 	{ 
 		int n = sig.size();
-		AbstractList<Double> values = new ArrayList<Double>(2*n);
+		AbstractList<Double> values = new Vector<Double>(2*n);
 		for(int i=0;i<n;i++) values.add(sig.get(i));
 		
 		double m = Math.floor(Math.log(n)/Math.log(2));
@@ -52,7 +52,7 @@ public class SignalTools{
 		for(int i =0; i<n; i++)
 			values.add(new Double(0));//for imaginary part
 		AbstractList<Double> complex_result = FFT(values, n);
-		ArrayList<Double> mod = new ArrayList<Double>(n);
+		Vector<Double> mod = new Vector<Double>(n);
 		for(int i=0;i<n;i++)
 			mod.add(Module(complex_result.get(i),complex_result.get(i+n)));
 		return mod;
@@ -60,7 +60,7 @@ public class SignalTools{
 	static public AbstractList<Double> DFTP(AbstractList<Double> sig)//Phase
 	{
 		int n = sig.size();
-		AbstractList<Double> values = new ArrayList<Double>(2*n);
+		AbstractList<Double> values = new Vector<Double>(2*n);
 		for(int i=0;i<n;i++) values.add(sig.get(i));
 		
 		double m = Math.floor(Math.log(n)/Math.log(2));
@@ -74,7 +74,7 @@ public class SignalTools{
 		for(int i =0; i<n; i++)
 			values.add(new Double(0));//for imaginary part
 		AbstractList<Double> complex_result = FFT(values, n);
-		ArrayList<Double> p = new ArrayList<Double>(n);
+		Vector<Double> p = new Vector<Double>(n);
 		for(int i=0;i<n;i++)
 			p.add(Phase(complex_result.get(i),complex_result.get(i+n)));
 		return p;
@@ -83,8 +83,8 @@ public class SignalTools{
 	{//size of values is 2*n : 0->(n-1)= real part; n->(2n-1)=imaginary part
 		if (n==1) return values;
 		
-		AbstractList<Double> pair=new ArrayList<Double>(2*n);
-		AbstractList<Double> impair=new ArrayList<Double>(2*n);
+		AbstractList<Double> pair=new Vector<Double>(2*n);
+		AbstractList<Double> impair=new Vector<Double>(2*n);
 		for (int i=0; i<2*n; i++)
 		{
 			if (i%2==0) pair.add(values.get(i));

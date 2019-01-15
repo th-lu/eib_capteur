@@ -1,7 +1,7 @@
 package view;
 
 import java.util.AbstractList;
-import java.util.ArrayList;
+import java.util.Vector;
 
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.LineChart;
@@ -32,7 +32,7 @@ public class Screen extends LineChart<Number, Number> {
 		AbstractList<Double> values = sig.getEchs();
 		int n = values.size();
 		int fe = sig.getFe();
-		AbstractList<Double> t = new ArrayList<Double>(n);
+		AbstractList<Double> t = new Vector<Double>(n);
 		for (int i = 0; i < n; i++)
 			t.add(new Double((double) i / fe));
 
@@ -46,7 +46,7 @@ public class Screen extends LineChart<Number, Number> {
 		AbstractList<Double> dft = SignalTools.DFTM(sig.getEchs());
 		int n = dft.size();
 		int fe = sig.getFe();
-		AbstractList<Double> freq = new ArrayList<Double>(n);
+		AbstractList<Double> freq = new Vector<Double>(n);
 		for (int i = 0; i < n; i++)
 			freq.add(new Double((double) (i * fe / n)));
 
