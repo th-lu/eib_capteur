@@ -106,7 +106,6 @@ public class Signal {
 	public void addEchAt(int index, double value) {
 		echs.add(index, new Double(value));
 	}
-
 	public void removeEchAt(int index) {
 		echs.remove(index);
 	}
@@ -119,9 +118,4 @@ public class Signal {
 		for (int i = findex; i < lindex + 1; i++)
 			echs.remove(i);
 	}
-	// public static void main(String[] args) {
-	// Signal sig = new Signal(SIGTYPE.SINE);
-	// System.out.println(SignalTools.mean(sig));
-	// System.out.println(sig.getEchs());
-	// }
 }
