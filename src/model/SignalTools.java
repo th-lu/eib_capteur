@@ -113,8 +113,4 @@ public class SignalTools{
 	}
 	static private Double Module(Double re, Double im){return Math.sqrt(re*re+im*im);}
 	static private Double Phase(Double re, Double im) {return Math.atan2(im, re);}
-	/*{
-		if (im > 0) return Math.acos(re/Module(re,im));
-		else return -Math.acos(re/Module(re,im));
-	}*/
 }
