@@ -35,12 +35,13 @@ public class Oscilloscope extends Application {
 		try {
 			BorderPane root = new BorderPane();
 			root.setCenter(createContent());
-			//ecran.addSignal(reception);
-			ecran.addSignal(new Signal("data.txt", 1000, "Volts", 0));
-			ecran.getYAxis().setLowerBound(1.45);
-			ecran.getYAxis().setUpperBound(1.7);
+			ecran.addSignal(reception);
+			//ecran.addSignal(new Signal("data.txt", 1000, "Volts", 0));
+			//ecran.getYAxis().setLowerBound(2.3);
+			//ecran.getYAxis().setUpperBound(2.6);
+			reception.addSignalListener(ecran);
 			
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root,1600,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("TP Java Oscilloscope");
@@ -55,12 +56,13 @@ public class Oscilloscope extends Application {
 	}
 	private Node createContent() {
 		ecran = new Screen();
-		Button update = new Button("Actualiser");
+		Button update = new Button("Calcul bpm");
 		update.setOnMouseClicked(
 				new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent e) {
-						ecran.removeSignal(0);
-						ecran.addSignal(reception);
+						//ecran.removeSignal(0);
+						//ecran.addSignal(reception);
+						//TODO
 					}
 				});
 		GridPane pane = new GridPane();

@@ -1,6 +1,9 @@
 package model;
 
 import java.util.Vector;
+
+import javax.swing.event.EventListenerList;
+
 import java.util.Random;
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,6 +16,8 @@ public class Signal {
 	private AbstractList<Double> echs;
 	private int nb_bits_quant;// 0 is considered as unknown
 	private int fe;// in Hz;
+
+	private final EventListenerList listeners = new EventListenerList();
 
 	public Signal(SIGTYPE type) {
 		unit = "Volts";
@@ -55,14 +60,14 @@ public class Signal {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(fsig));
 			String value = null;
-			while((value = in.readLine()) != null) {
+			while ((value = in.readLine()) != null) {
 				echs.add(Double.parseDouble(value));
 			}
 			in.close();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public Signal(AbstractList<Double> values, int fe, int nb_bits_quant) {
@@ -106,10 +111,15 @@ public class Signal {
 	public void addEchAt(int index, double value) {
 		echs.add(index, new Double(value));
 	}
+
 	public void removeEchAt(int index) {
 		echs.remove(index);
 	}
 
+	public void addEchsAtEnd(AbstractList<Double> values) {
+		echs.addAll(echs.size(), values);
+		this.fireEchsAddedEnd(values);
+	}
 	public void addEchsAt(int index, AbstractList<Double> values) {
 		echs.addAll(index, values);
 	}
@@ -117,5 +127,34 @@ public class Signal {
 	public void removeEchsAt(int findex, int lindex) {
 		for (int i = findex; i < lindex + 1; i++)
 			echs.remove(i);
+	}
+
+	public void clear() {
+		echs.clear();
+		this.fireSignalCleared();
+	}
+
+	public void addSignalListener(SignalListener listener) {
+		listeners.add(SignalListener.class, listener);
+	}
+
+	public void removeSignalListener(SignalListener listener) {
+		listeners.remove(SignalListener.class, listener);
+	}
+
+	public SignalListener[] getSignalListeners() {
+		return listeners.getListeners(SignalListener.class);
+	}
+
+	public void fireEchsAddedEnd(AbstractList<Double> echsAdd) {
+		for (SignalListener listener : getSignalListeners()) {
+			listener.EchsAdded(echsAdd);
+		}
+	}
+
+	public void fireSignalCleared() {
+		for (SignalListener listener : getSignalListeners()) {
+			listener.SignalCleared();
+		}
 	}
 }

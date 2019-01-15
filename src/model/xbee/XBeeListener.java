@@ -3,6 +3,8 @@ package model.xbee;
 import java.util.AbstractList;
 import java.util.Vector;
 
+import javax.swing.event.EventListenerList;
+
 import com.rapplogic.xbee.api.ApiId;
 import com.rapplogic.xbee.api.PacketListener;
 import com.rapplogic.xbee.api.XBee;
@@ -12,6 +14,7 @@ import com.rapplogic.xbee.api.wpan.IoSample;
 import com.rapplogic.xbee.api.wpan.RxResponseIoSample;
 
 import model.Signal;
+import model.SignalListener;
 
 public class XBeeListener {
 
@@ -27,21 +30,19 @@ public class XBeeListener {
 		xbee.addPacketListener(new PacketListener() {
 
 			public void processResponse(XBeeResponse response) {
-				//System.out.println("ReÃ§u");
+				// System.out.println("ReÃ§u");
 				if (response.getApiId() == ApiId.RX_16_IO_RESPONSE || response.getApiId() == ApiId.RX_64_IO_RESPONSE) {
 					RxResponseIoSample ioSample = (RxResponseIoSample) response;
 					Vector<Double> samples = new Vector<Double>();
 					for (IoSample sample : ioSample.getSamples()) {
-						//System.out.println("Analog D0 reading is " + sample.getAnalog0());
+						// System.out.println("Analog D0 reading is " + sample.getAnalog0());
 						samples.add(new Double(sample.getAnalog0() * 3.3 / 1023));
 					}
 					int taille = reception.getEchs().size();
-					//System.out.println(reception.getEchs().toString());
-					if (taille > 10000) {// 10s de donnée max pour ne pas surcharger la mémoire.
-						reception.removeEchsAt(0, samples.size());
-						taille -= samples.size();
-					}
-					reception.addEchsAt(taille, samples);
+					// System.out.println(reception.getEchs().toString());
+					if (taille > 5000)// 10s de donnée max pour ne pas surcharger la mémoire.
+						reception.clear();
+					reception.addEchsAtEnd(samples);
 				}
 			}
 		});
@@ -49,5 +50,9 @@ public class XBeeListener {
 
 	public Signal getSignal() {
 		return reception;
+	}
+
+	public void setSignal(Signal sig) {
+		this.reception = sig;
 	}
 }
