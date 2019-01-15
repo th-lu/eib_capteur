@@ -2,8 +2,6 @@ package view;
 	
 import java.util.ArrayList;
 
-import javax.swing.JButton;
-
 import com.rapplogic.xbee.api.XBeeException;
 
 import javafx.application.Application;
@@ -71,11 +69,4 @@ public class Oscilloscope extends Application {
 		pane.add(update, 0,1);
 		return pane;
 	}
-	/*public void stop() {
-		
-	}*/
-	
-	/*public void init() {
-		
-	}*/	
 }

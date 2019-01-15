@@ -68,5 +68,4 @@ public class Screen extends LineChart<Number, Number> {
 	public NumberAxis getYAxis() {
 		return (NumberAxis) super.getYAxis();
 	}
-	
 }
