@@ -26,7 +26,7 @@ public class Screen extends LineChart<Number, Number> implements SignalListener 
 		grille = new Grid();
 		this.getXAxis().setAutoRanging(false);
 		this.getYAxis().setAutoRanging(false);
-		this.getXAxis().setUpperBound(5);
+		this.getXAxis().setUpperBound(10);
 		this.getYAxis().setLowerBound(2.4);
 		this.getYAxis().setUpperBound(2.7);
 		this.setLegendVisible(false);

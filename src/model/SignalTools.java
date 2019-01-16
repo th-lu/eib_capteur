@@ -42,6 +42,8 @@ public class SignalTools {
 
 	static public AbstractList<Double> DFTM(AbstractList<Double> sig)// Module
 	{
+		if (sig.size() == 0)
+			return null;
 		int n = sig.size();
 		AbstractList<Double> values = new Vector<Double>(2 * n);
 		for (int i = 0; i < n; i++)
